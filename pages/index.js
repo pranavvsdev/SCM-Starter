@@ -59,17 +59,17 @@ export default function HomePage() {
     }
   }
 
-  const deposit = async() => {
+  const arrayproddiff = async() => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.arrayproddiff([5,4,9,8,6],[1,5,2,4,3]);
       await tx.wait()
       getBalance();
     }
   }
 
-  const withdraw = async() => {
+  const arraysumdiff = async() => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.arraysumdiff([5,4,9,8,6],[1,5,2,4,3]);
       await tx.wait()
       getBalance();
     }
@@ -93,9 +93,9 @@ export default function HomePage() {
     return (
       <div>
         <p>Your Account: {account}</p>
-        <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <p>Array Result: {balance}</p>
+        <button onClick={arrayproddiff}>Difference of product of 2 arrays</button>
+        <button onClick={arraysumdiff}>Difference of sum of 2 arrays</button>
       </div>
     )
   }
@@ -104,11 +104,12 @@ export default function HomePage() {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header><h1><i>Difference of Sum/Product of 2 arrays</i></h1><span>The input array given is [5,4,9,8,6],[1,5,2,4,3]</span></header>
       {initUser()}
       <style jsx>{`
         .container {
-          text-align: center
+          text-align: center;
+
         }
       `}
       </style>
