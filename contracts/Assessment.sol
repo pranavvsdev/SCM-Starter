@@ -4,14 +4,11 @@ pragma solidity ^0.8.9;
 //import "hardhat/console.sol";
 
 contract Assessment {
-    address payable public owner;
+   
     uint256 public balance;
 
-    event Deposit(uint256 amount);
-    event Withdraw(uint256 amount);
-
     constructor(uint initBalance) payable {
-        owner = payable(msg.sender);
+       
         balance = initBalance;
     }
 
@@ -19,42 +16,30 @@ contract Assessment {
         return balance;
     }
 
-    function deposit(uint256 _amount) public payable {
-        uint _previousBalance = balance;
+    function arrayproddiff(uint[] memory array,uint[] memory array2) public payable {
+        uint prod1=1;
+        uint prod2=1;
 
-        // make sure this is the owner
-        require(msg.sender == owner, "You are not the owner of this account");
-
-        // perform transaction
-        balance += _amount;
-
-        // assert transaction completed successfully
-        assert(balance == _previousBalance + _amount);
-
-        // emit the event
-        emit Deposit(_amount);
+        for (uint i = 0; i < array.length; i++) {
+            prod1 *= array[i];
+        }
+        for (uint i = 0; i < array2.length; i++) {
+            prod2 *= array2[i];
+        }
+        balance=prod1-prod2;
     }
 
-    // custom error
-    error InsufficientBalance(uint256 balance, uint256 withdrawAmount);
 
-    function withdraw(uint256 _withdrawAmount) public {
-        require(msg.sender == owner, "You are not the owner of this account");
-        uint _previousBalance = balance;
-        if (balance < _withdrawAmount) {
-            revert InsufficientBalance({
-                balance: balance,
-                withdrawAmount: _withdrawAmount
-            });
+    function arraysumdiff(uint[] memory array,uint[] memory array2) public {
+        uint sum1=0;
+        uint sum2=0;
+
+        for (uint i = 0; i < array.length; i++) {
+            sum1 += array[i];
         }
-
-        // withdraw the given amount
-        balance -= _withdrawAmount;
-
-        // assert the balance is correct
-        assert(balance == (_previousBalance - _withdrawAmount));
-
-        // emit the event
-        emit Withdraw(_withdrawAmount);
+        for (uint i = 0; i < array2.length; i++) {
+            sum2 += array2[i];
+        }
+        balance=sum1-sum2;
     }
 }
